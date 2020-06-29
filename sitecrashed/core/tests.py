@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 from sitecrashed.core.models import Site, Event
@@ -5,7 +6,8 @@ from sitecrashed.core.models import Site, Event
 
 class TestSite(TestCase):
     def setUp(self):
-        self.site = Site.objects.create(url='https://ohmycode.com.br/')
+        self.user = User.objects.create(username='test', email='gabrielloliveiradev@gmail.com', password='test')
+        self.site = Site.objects.create(url='https://ohmycode.com.br/', owner=self.user)
 
     def test_site_created(self):
         """There should be a site."""
@@ -23,7 +25,8 @@ class TestSite(TestCase):
 
 class TestEvent(TestCase):
     def setUp(self) -> None:
-        self.site = Site.objects.create(url='https://ohmycode.com.br/')
+        self.user = User.objects.create(username='test', email='gabrielloliveiradev@gmail.com', password='test')
+        self.site = Site.objects.create(url='https://ohmycode.com.br/', owner=self.user)
         self.event = Event.objects.create(site=self.site)
 
     def test_event_created(self):
