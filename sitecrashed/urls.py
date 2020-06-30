@@ -19,7 +19,6 @@ from django.urls import path
 admin.AdminSite.site_header = 'SiteCrashed'
 admin.AdminSite.site_title = 'SiteCrashed'
 
-
 urlpatterns = [
     path('', admin.site.urls),
 ]
