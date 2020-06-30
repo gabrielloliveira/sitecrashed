@@ -3,10 +3,15 @@ from __future__ import absolute_import, unicode_literals
 
 import requests
 from celery import shared_task
+from decouple import config
 from django.conf import settings
 from django.core.mail import send_mail
 
 from sitecrashed.core.models import Site, Event
+
+
+BOT_TOKEN = config("TELEGRAM_BOT_TOKEN", default=None)
+CHANNEL_ID = config("TELEGRAM_CHANNEL_ID", default=None)
 
 
 @shared_task
@@ -21,6 +26,9 @@ def notify_user(website, owner):
         to,
         fail_silently=False,
     )
+    if BOT_TOKEN:
+        telegram_api = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id=-{CHANNEL_ID}&text={message}"
+        requests.get(telegram_api)
 
 
 @shared_task
