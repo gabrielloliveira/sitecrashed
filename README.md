@@ -2,6 +2,8 @@
 
 A simple application to notify when a website goes down.
 
+<p align="center"><img src="./public/img/login.png"/></p>
+
 ## Requirements
 
 * Python >= 3.6
