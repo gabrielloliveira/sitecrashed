@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from sitecrashed.core.tasks import notify_user
+from sitecrashed.core.utils import handle_notification
 
 
 class Site(models.Model):
@@ -41,8 +41,8 @@ class Event(models.Model):
 
 @receiver(post_save, sender=Event)
 def verify_event(sender, instance, **kwargs):
-    last_six_events = Event.objects.order_by('-created_at')[:6]
+    last_six_events = Event.objects.filter(site=instance.site).order_by('-created_at')[:5]
     downs = [event.type for event in last_six_events if event.type == Event.DOWN]
-    if len(downs) == 6:
-        notify_user.delay(website=instance.site.url, owner=instance.site.owner.email)
+    if len(downs) == 5:
+        handle_notification(website=instance.site.url, owner=instance.site.owner.email)
         Event.objects.create(site=instance.site, type=Event.NOTIFICATION)

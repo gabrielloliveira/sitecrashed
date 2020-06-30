@@ -60,6 +60,5 @@ class TestEvent(TestCase):
         Event.objects.create(site=self.site, type=Event.DOWN)
         Event.objects.create(site=self.site, type=Event.DOWN)
         Event.objects.create(site=self.site, type=Event.DOWN)
-        Event.objects.create(site=self.site, type=Event.DOWN)
         self.assertEqual(Event.objects.filter(site=self.site).first().type, Event.NOTIFICATION)
 
