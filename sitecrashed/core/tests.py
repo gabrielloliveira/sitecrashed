@@ -52,3 +52,14 @@ class TestEvent(TestCase):
         self.event.type = Event.NOTIFICATION
         self.event.save()
         self.assertEqual(self.event.type, Event.NOTIFICATION)
+
+    def test_send_notifiation(self):
+        """If the site has 6 down events, then a notification must be sent to the owner."""
+        Event.objects.create(site=self.site, type=Event.DOWN)
+        Event.objects.create(site=self.site, type=Event.DOWN)
+        Event.objects.create(site=self.site, type=Event.DOWN)
+        Event.objects.create(site=self.site, type=Event.DOWN)
+        Event.objects.create(site=self.site, type=Event.DOWN)
+        Event.objects.create(site=self.site, type=Event.DOWN)
+        self.assertEqual(Event.objects.filter(site=self.site).first().type, Event.NOTIFICATION)
+

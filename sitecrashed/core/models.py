@@ -32,6 +32,9 @@ class Event(models.Model):
     type = models.CharField(max_length=50, choices=TYPE_CHOICES, default=UP)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('-created_at',)
+
     def __str__(self):
         return f"{self.site} - {self.type}"
 
@@ -42,3 +45,4 @@ def verify_event(sender, instance, **kwargs):
     downs = [event.type for event in last_six_events if event.type == Event.DOWN]
     if len(downs) == 6:
         notify_user.delay(website=instance.site.url, owner=instance.site.owner.email)
+        Event.objects.create(site=instance.site, type=Event.NOTIFICATION)
