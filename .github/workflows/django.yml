@@ -22,8 +22,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Copying configurations
-        run: |
-          cp contrib/env-example .env
+      run: |
+        cp contrib/env-example .env
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
