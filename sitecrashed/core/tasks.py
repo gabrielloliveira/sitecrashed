@@ -11,7 +11,7 @@ from sitecrashed.core.models import Site, Event
 
 @shared_task
 def notify_user(website, owner):
-    subject = 'Site caiu!'
+    subject = f'Site {website} caiu!'
     message = f'O site {website} caiu.'
     to = [owner]
     send_mail(
