@@ -12,6 +12,7 @@ django-timezone-field==4.0
 future==0.18.2
 idna==2.10
 kombu==4.6.11
+psycopg2-binary==2.8.5
 python-crontab==2.5.1
 python-dateutil==2.8.1
 python-decouple==3.3
