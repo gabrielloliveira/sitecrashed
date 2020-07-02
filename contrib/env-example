@@ -1,6 +1,6 @@
 DEBUG=True
 SECRET_KEY=YOUR SECRET KEY
-CELERY_BROKER_URL=redis://url:port
+REDIS_URL=redis://url:port
 DEFAULT_FROM_EMAIL=YOUR DEFAULT FROM EMAIL
 EMAIL_HOST=smtp.your-email-host.com
 EMAIL_HOST_USER=your-email@example.com
